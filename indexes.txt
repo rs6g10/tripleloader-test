@@ -1,0 +1,16 @@
+USE [TripleStore]
+GO
+
+/****** Object:  Index [PK_Triples]    Script Date: 17/01/2017 00:06:17 ******/
+ALTER TABLE [dbo].[Triples] ADD  CONSTRAINT [PK_Triples] PRIMARY KEY CLUSTERED 
+(
+	[OrderId] ASC,
+	[Association] ASC,
+	[ObjectId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+
+create nonclustered index [PSO] on Triples (Association) Include (OrderId, ObjectId);
+create nonclustered index [OSP] on Triples (ObjectId) Include (OrderId, Association);
+
+
