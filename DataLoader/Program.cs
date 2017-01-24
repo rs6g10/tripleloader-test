@@ -16,55 +16,45 @@ namespace DataLoader
     {
         static void Main(string[] args)
         {
-            SqlLoader sqlLoader = new SqlLoader();
-            var triples = new TripleStore().GetTriples();
-            string connectionString = @"Data Source =RAHULPC\SQLEXPRESS;Initial Catalog=TripleStore;Integrated Security=True;MultipleActiveResultSets=true;";
-            sqlLoader.Load(connectionString, triples);
-            Console.WriteLine("Done inserting");
+            Association association = new Association();
+            string connectionString = KnownSettings.ConnectionString;
+
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
+            //association.InsertRowsToTable(connectionString);
+            InsertTriples(connectionString);
+
+            //IList<Triple> triples = new Query(connectionString).GetTripleFromAssociation(1603724309);
+            //var triples = new Query(connectionString).GetTripleFromSubject(12125);
+            //var triples = new Query(connectionString).GetTripleFromObject(15265);
+            watch.Stop();
+            // Console.WriteLine("Total rows returned: {0}. Total execution time: {1}ms", triples.Count, watch.ElapsedMilliseconds);
+
             Console.Read();
         }
-    }
 
-    public class TripleStore
-    {
-
-
-        public DataTable GetTriples()
+        private static void InsertTriples(string connectionString)
         {
-            Random rnd = new Random();
-            DataTable dataTable = new DataTable("Triples");
+            SqlLoader sqlLoader = new SqlLoader();
+            int totalSize = 50000;
+            int batchSize = 5000;
 
-            dataTable.Columns.Add("OrderId");
-            dataTable.Columns.Add("Association");
-            dataTable.Columns.Add("ObjectId");
+            int counter = (int)Math.Round((Double)(totalSize / batchSize));
 
-            List<string> associationIds = File.ReadAllLines(@"C:\Rahul\associations.txt").ToList();
-            List<Triple> triples = new List<Triple>();
-            for (int i = 300000; i <= 400000; i++)
+            for (int i = 1; i <= counter; i++)
             {
-                var values = new object[3];
-                foreach (var associationId in associationIds)
+                int min = i;
+                int max = i * batchSize;
+                if (i > 1)
                 {
-                    Console.Write("Making Triples: {0}\r", dataTable.Rows.Count);
-                    values[0] = i + 23400;
-                    values[1] = Convert.ToInt64(associationId);
-                    values[2] = 1000 + i;
-
-                    dataTable.Rows.Add(values);
+                    min = ((i - 1) * batchSize) + (i - 1);
                 }
+                var triples = new TripleStore().GetTriples(min, max);
+
+                sqlLoader.Load(connectionString, triples);
+                Console.WriteLine("Done inserting batch {0} of {1} with size: {2}", i, counter, batchSize);
             }
-            Console.WriteLine("Done getting triples object!");
-            return dataTable;
+            Console.WriteLine("Done inserting");
         }
-
     }
-
-    public class Triple
-    {
-        public long OrderId { get; set; }
-        public long Association { get; set; }
-        public long ObjectId { get; set; }
-    }
-
-
 }
