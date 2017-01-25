@@ -29,7 +29,7 @@ namespace DataLoader
                     );
 
                 // set the destination table name
-                bulkCopy.DestinationTableName = "Triples2";
+                bulkCopy.DestinationTableName = "Triples_v2";
                 connection.Open();
 
                 // write the data in the "dataTable"

@@ -13,13 +13,13 @@ namespace DataLoader
         public DataTable GetTriples(int min, int max)
         {
             Random rnd = new Random();
-            DataTable dataTable = new DataTable("Triples2");
+            DataTable dataTable = new DataTable("Triples_v2");
 
             dataTable.Columns.Add("OrderId");
             dataTable.Columns.Add("Association");
             dataTable.Columns.Add("ObjectId");
 
-            List<string> associationIds = File.ReadAllLines(@"C:\Rahul\associations.txt").ToList();
+            List<string> associationIds = File.ReadAllLines(@"C:\rahul\associations.txt").ToList();
             List<Triple> triples = new List<Triple>();
             for (int i = min; i <= max; i++)
             {
