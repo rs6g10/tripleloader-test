@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DataLoader.Models
 {
-    class Order
+    public class Order
     {
+        public long OrderId { get; set; }
     }
 }

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataLoader.Models
 {
-    class Corporate
+    public class Corporate
     {
+        public long CorporateId { get; set; }
+
     }
 }

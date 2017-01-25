@@ -8,5 +8,6 @@ namespace DataLoader.Models
 {
     class Product
     {
+        public long ProductId { get; set; }
     }
 }

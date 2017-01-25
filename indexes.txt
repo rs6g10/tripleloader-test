@@ -14,3 +14,10 @@ create nonclustered index [PSO] on Triples (Association) Include (OrderId, Objec
 create nonclustered index [OSP] on Triples (ObjectId) Include (OrderId, Association);
 
 
+ALTER TABLE dbo.Triples REBUILD WITH ( DATA_COMPRESSION = PAGE ) 
+GO
+DBCC FREEPROCCACHE
+DBCC DROPCLEANBUFFERS 
+GO;
+
+
