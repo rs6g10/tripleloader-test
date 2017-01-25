@@ -46,6 +46,9 @@
   <ItemGroup>
     <Compile Include="Association.cs" />
     <Compile Include="KnownSettings.cs" />
+    <Compile Include="Models\Corporate.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLLoader.cs" />

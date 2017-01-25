@@ -36,7 +36,7 @@ namespace DataLoader
         private static void InsertTriples(string connectionString)
         {
             SqlLoader sqlLoader = new SqlLoader();
-            int totalSize = 50000;
+            int totalSize = 5000000;
             int batchSize = 5000;
 
             int counter = (int)Math.Round((Double)(totalSize / batchSize));
@@ -50,9 +50,10 @@ namespace DataLoader
                     min = ((i - 1) * batchSize) + (i - 1);
                 }
                 var triples = new TripleStore().GetTriples(min, max);
-
+                var watch = System.Diagnostics.Stopwatch.StartNew();
                 sqlLoader.Load(connectionString, triples);
-                Console.WriteLine("Done inserting batch {0} of {1} with size: {2}", i, counter, batchSize);
+                watch.Stop();
+                Console.WriteLine("Done inserting batch {0} of {1} with size: {2} with time {3}ms", i, counter, triples.Select().Length, watch.ElapsedMilliseconds);
             }
             Console.WriteLine("Done inserting");
         }
