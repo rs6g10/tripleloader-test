@@ -13,7 +13,7 @@ namespace DataLoader
         public DataTable GetTriples(int min, int max)
         {
             Random rnd = new Random();
-            DataTable dataTable = new DataTable("Triples_v2");
+            DataTable dataTable = new DataTable(KnownSettings.TableName);
 
             dataTable.Columns.Add("OrderId");
             dataTable.Columns.Add("Association");
@@ -27,9 +27,9 @@ namespace DataLoader
                 foreach (var associationId in associationIds.Take(10).ToList())
                 {
                     Console.Write("Making Triples: {0}\r", dataTable.Rows.Count);
-                    values[0] = i + 5000;
+                    values[0] = i + 3000;
                     values[1] = Convert.ToInt64(associationId);
-                    values[2] = rnd.Next(100,5000);
+                    values[2] = rnd.Next(1000,3000);
 
                     dataTable.Rows.Add(values);
                 }

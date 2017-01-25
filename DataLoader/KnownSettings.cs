@@ -9,6 +9,8 @@ namespace DataLoader
     public static class KnownSettings
     {
         public static string ConnectionString = @"Data Source=cm1-in-sqldb01a.test.local\ce;Initial Catalog=c44_test;Integrated Security=True;MultipleActiveResultSets=true;Connection Timeout=30000";
+
+        public static string TableName = "Triples_v2";
     }
 }
 //            string connectionString = @"Data Source =RAHULPC\SQLEXPRESS;Initial Catalog=TripleStore;Integrated Security=True;MultipleActiveResultSets=true;";
