@@ -19,14 +19,12 @@ namespace DataLoader
             Association association = new Association();
             string connectionString = KnownSettings.ConnectionString;
 
+            Console.WriteLine("Please enter a business id (number only).");
+            var objectId = int.Parse(Console.ReadLine());
+
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
-            //association.InsertRowsToTable(connectionString);
-            //InsertTriples(connectionString);
-
-            //IList<Triple> triples = new Query(connectionString).GetTripleFromAssociation(1603724309);
-            //var triples = new Query(connectionString).GetTripleFromSubject(12125);
-            var triples = new Query(connectionString).GetTripleFromObject(4696);
+            var triples = new Query(connectionString).GetTripleFromObject(objectId);
             watch.Stop();
              Console.WriteLine("Total rows returned: {0}. Total execution time: {1}ms", triples.Count, watch.ElapsedMilliseconds);
 
